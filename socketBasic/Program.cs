@@ -36,20 +36,22 @@ namespace socketBasic
                     {
                         numberOfReceivedBytes = client.Receive(buffer);
 
-                        Console.WriteLine(numberOfReceivedBytes + " bytes received");
+                        //Console.WriteLine(numberOfReceivedBytes + " bytes received");
 
-                        var receivedText = Encoding.ASCII.GetString(buffer, 0, numberOfReceivedBytes);
-                        Console.WriteLine($"Data received: {receivedText}");
-
-                        client.Send(buffer);
-
-                        Array.Clear(buffer, 0, buffer.Length);
-                        numberOfReceivedBytes = 0;
-                    }
+                            var receivedText = Encoding.ASCII.GetString(buffer, 0, numberOfReceivedBytes);
+                            if (numberOfReceivedBytes > 0)
+                                Console.WriteLine($"Data received: {receivedText}");
+                            client.Send(buffer);
+                       
+                            Array.Clear(buffer, 0, buffer.Length);
+                            numberOfReceivedBytes = 0;
+                        }
+                   
                 }
-                catch ()
+                catch (Exception exception)
                 {
                     Console.WriteLine("Connection closed");
+                    //Console.WriteLine(exception.ToString());
                 }
 
             }
